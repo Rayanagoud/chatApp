@@ -1,0 +1,86 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+<style>
+    .change-username-form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .change-username-form h2 {
+        color: #075e54;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: bold;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    .form-group input:focus {
+        outline: none;
+        border-color: #075e54;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #25D366;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .submit-btn:hover {
+        background-color: #128C7E;
+    }
+</style>
+
+<div class="change-username-form">
+    <h2>Change Username</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <small style="color: #dc3545;">{{ field.errors|join:", " }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">Change Username</button>
+    </form>
+</div>
+{% endblock %}
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Change Username</title>
+</head>
+<body>
+    <h2>Change Username</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Change Username</button>
+    </form>
+</body>
+</html> {% endcomment %}
