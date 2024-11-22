@@ -1,0 +1,7 @@
+{% for message in messages %}
+    <div class="message">
+        <strong>{{ message.sender.username }}:</strong> 
+        {{ message.content }} 
+        <small>({{ message.timestamp|date:"F d, Y H:i" }})</small>
+    </div>
+{% endfor %}

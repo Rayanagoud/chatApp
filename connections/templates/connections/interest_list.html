@@ -1,0 +1,110 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+<style>
+    .interests-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+    .interests-container h2 {
+        color: #ffffff;
+        font-size: 20px;
+        margin: 0;
+        padding: 15px;
+        background-color: #075e54;
+        text-align: left;
+    }
+    .interests-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .interest-item {
+        border-bottom: 1px solid #f2f2f2;
+        padding: 15px;
+        transition: background-color 0.3s ease;
+    }
+    .interest-item:last-child {
+        border-bottom: none;
+    }
+    .interest-item:hover {
+        background-color: #f5f5f5;
+    }
+    .sender-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #128C7E;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        float: left;
+        margin-right: 15px;
+    }
+    .sender {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+    .message {
+        color: #555;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    .respond-link {
+        display: inline-block;
+        background-color: #25D366;
+        color: #fff;
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        font-size: 14px;
+    }
+    .respond-link:hover {
+        background-color: #128C7E;
+    }
+    .no-interests {
+        text-align: center;
+        color: #777;
+        font-style: italic;
+        padding: 20px;
+    }
+</style>
+
+<div class="interests-container">
+    <h2>Received Interests</h2>
+    <ul class="interests-list">
+        {% for interest in interests %}
+        <li class="interest-item">
+            <div class="sender-avatar">{{ interest.sender.username.0|upper }}</div>
+            <div class="sender">{{ interest.sender.username }}</div>
+            <div class="message">{{ interest.message }}</div>
+            <a href="{% url 'accept_reject_interest' interest.id %}" class="respond-link">Respond</a>
+        </li>
+        {% empty %}
+        <li class="no-interests">No new interests received.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% comment %} {% extends 'dashboard.html' %}
+
+{% block content %}
+<h2>Received Interests</h2>
+<ul>
+    {% for interest in interests %}
+    <li>
+        From: {{ interest.sender.username }}
+        Message: {{ interest.message }}
+        <a href="{% url 'accept_reject_interest' interest.id %}">Respond</a>
+    </li>
+    {% empty %}
+    <li>No new interests received.</li>
+    {% endfor %}
+</ul>
+{% endblock %} {% endcomment %}

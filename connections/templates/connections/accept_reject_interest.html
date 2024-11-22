@@ -1,0 +1,102 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+<style>
+    .respond-container {
+        max-width: 500px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+    .respond-header {
+        background-color: #075e54;
+        color: #ffffff;
+        padding: 15px;
+        font-size: 20px;
+    }
+    .interest-details {
+        padding: 20px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .sender-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #128C7E;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 15px;
+    }
+    .sender-name {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+    .interest-message {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+    .response-form {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .btn-accept {
+        background-color: #25D366;
+        color: #ffffff;
+    }
+    .btn-accept:hover {
+        background-color: #128C7E;
+    }
+    .btn-reject {
+        background-color: #f44336;
+        color: #ffffff;
+    }
+    .btn-reject:hover {
+        background-color: #d32f2f;
+    }
+</style>
+
+<div class="respond-container">
+    <div class="respond-header">
+        Respond to Interest
+    </div>
+    <div class="interest-details">
+        <div class="sender-avatar">{{ interest.sender.username.0|upper }}</div>
+        <div class="sender-name">{{ interest.sender.username }}</div>
+        <div class="interest-message">{{ interest.message }}</div>
+    </div>
+    <form method="post" class="response-form">
+        {% csrf_token %}
+        <button type="submit" name="action" value="accept" class="btn btn-accept">Accept</button>
+        <button type="submit" name="action" value="reject" class="btn btn-reject">Reject</button>
+    </form>
+</div>
+{% endblock %}
+{% comment %} {% extends 'dashboard.html' %}
+
+{% block content %}
+<h2>Respond to Interest</h2>
+<p>From: {{ interest.sender.username }}</p>
+<p>Message: {{ interest.message }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="action" value="accept">Accept and Start Chat</button>
+    <button type="submit" name="action" value="reject">Reject</button>
+</form>
+{% endblock %} {% endcomment %}
